@@ -5,12 +5,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
-SURVEY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSd0M2jeyEnXTCmQKScek5RtRAoh7R2762jMcnjIdsU7mZdHPw/viewform?usp=sf_link'
+SURVEY_URL = 'YOUR SHAREABLE GOOGLE FORM LINK'
+#Note, use the full link, not the shortened link
 
 APT_URL = 'https://www.apartments.com/san-francisco-ca/min-1-bedrooms-under-3000/'
+#This URL can be changed according to your preferences
 
 HEADER = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+    "User-Agent": "YOUR USER AGENT",
     "Accept-Language": "en-US,en;q=0.9",
 }
 
@@ -33,13 +35,13 @@ for i in house_prices:
     house_prices_min.append(i.contents[0].text[0:6])
 print(house_prices_min)
 
-#house_links = soup.find_all(name='article', class_='placard placard-option-diamond has-header js-diamond')
 house_links = soup.find_all(class_='property-link')
 house_links = [house.get('href') for house in house_links]
 house_links_unique = []
 [house_links_unique.append(x) for x in house_links if x not in house_links_unique]
 print(house_links_unique)
 
+#Create a dictionary of housing information for each listing
 vals = zip(house_addresses_unique, house_prices_min, house_links_unique)
 ids = range(1, len(house_addresses_unique)+1)
 house_info = dict(zip(ids, vals))
